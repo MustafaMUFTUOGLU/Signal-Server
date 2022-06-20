@@ -191,8 +191,8 @@ class AccountsManagerChangeNumberIntegrationTest {
           mock(ReservedUsernames.class),
           mock(ProfilesManager.class),
           mock(StoredVerificationCodeManager.class),
-          secureStorageClient,
-          secureBackupClient,
+          //secureStorageClient,
+          //secureBackupClient,
           clientPresenceManager,
           mock(Clock.class));
     }

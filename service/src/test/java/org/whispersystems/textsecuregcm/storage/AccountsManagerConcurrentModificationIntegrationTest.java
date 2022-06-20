@@ -160,8 +160,8 @@ class AccountsManagerConcurrentModificationIntegrationTest {
           mock(ReservedUsernames.class),
           mock(ProfilesManager.class),
           mock(StoredVerificationCodeManager.class),
-          mock(SecureStorageClient.class),
-          mock(SecureBackupClient.class),
+         // mock(SecureStorageClient.class),
+         // mock(SecureBackupClient.class),
           mock(ClientPresenceManager.class),
           mock(Clock.class)
       );

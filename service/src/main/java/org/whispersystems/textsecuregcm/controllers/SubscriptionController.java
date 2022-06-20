@@ -464,12 +464,12 @@ public class SubscriptionController {
     return CompletableFuture.supplyAsync(() -> {
       long boostLevel = boostConfiguration.getLevel();
       String boostBadge = boostConfiguration.getBadge();
-      long giftLevel = giftConfiguration.level();
-      String giftBadge = giftConfiguration.badge();
+      long giftLevel = giftConfiguration.getLevel();
+      String giftBadge = giftConfiguration.getBadge();
       List<Locale> acceptableLanguages = getAcceptableLanguagesForRequest(containerRequestContext);
       GetBoostBadgesResponse getBoostBadgesResponse = new GetBoostBadgesResponse(Map.of(
           boostLevel, new GetBoostBadgesResponse.Level(new PurchasableBadge(badgeTranslator.translate(acceptableLanguages, boostBadge), boostConfiguration.getExpiration())),
-          giftLevel, new GetBoostBadgesResponse.Level(new PurchasableBadge(badgeTranslator.translate(acceptableLanguages, giftBadge), giftConfiguration.expiration()))));
+          giftLevel, new GetBoostBadgesResponse.Level(new PurchasableBadge(badgeTranslator.translate(acceptableLanguages, giftBadge), giftConfiguration.getExpiration()))));
       return Response.ok(getBoostBadgesResponse).build();
     });
   }
@@ -490,7 +490,7 @@ public class SubscriptionController {
   @Produces(MediaType.APPLICATION_JSON)
   public CompletableFuture<Response> getGiftAmounts() {
     return CompletableFuture.supplyAsync(() -> Response.ok(
-        giftConfiguration.currencies().entrySet().stream().collect(
+        giftConfiguration.getCurrencies().entrySet().stream().collect(
             Collectors.toMap(entry -> entry.getKey().toUpperCase(Locale.ROOT), Entry::getValue))).build());
   }
 
@@ -525,8 +525,8 @@ public class SubscriptionController {
       if (request.level == null) {
         request.level = boostConfiguration.getLevel();
       }
-      if (request.level == giftConfiguration.level()) {
-        BigDecimal amountConfigured = giftConfiguration.currencies().get(request.currency.toLowerCase(Locale.ROOT));
+      if (request.level == giftConfiguration.getLevel()) {
+        BigDecimal amountConfigured = giftConfiguration.getCurrencies().get(request.currency.toLowerCase(Locale.ROOT));
         if (amountConfigured == null || stripeManager.convertConfiguredAmountToStripeAmount(request.currency, amountConfigured).compareTo(BigDecimal.valueOf(request.amount)) != 0) {
           throw new WebApplicationException(Response.status(Status.CONFLICT).entity(Map.of("error", "level_amount_mismatch")).build());
         }
@@ -586,8 +586,8 @@ public class SubscriptionController {
           Duration levelExpiration;
           if (boostConfiguration.getLevel() == level) {
             levelExpiration = boostConfiguration.getExpiration();
-          } else if (giftConfiguration.level() == level) {
-            levelExpiration = giftConfiguration.expiration();
+          } else if (giftConfiguration.getLevel() == level) {
+            levelExpiration = giftConfiguration.getExpiration();
           } else {
             logger.error("level ({}) returned from payment intent that is unknown to the server", level);
             throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

@@ -139,21 +139,23 @@ public class DynamoDbExtension implements BeforeEachCallback, AfterEachCallback 
 
   private void initializeClient() {
     dynamoDB2 = DynamoDbClient.builder()
-        .endpointOverride(URI.create("http://localhost:" + port))
-        .region(Region.of("local-test-region"))
+        //.endpointOverride(URI.create("http://localhost:" + port))
+        .region(Region.of("us-east-1"))
         .credentialsProvider(StaticCredentialsProvider.create(
-            AwsBasicCredentials.create("accessKey", "secretKey")))
+            AwsBasicCredentials.create("AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm")))
         .build();
     dynamoAsyncDB2 = DynamoDbAsyncClient.builder()
-        .endpointOverride(URI.create("http://localhost:" + port))
-        .region(Region.of("local-test-region"))
+        //.endpointOverride(URI.create("http://localhost:" + port))
+        .region(Region.of("us-east-1"))
         .credentialsProvider(StaticCredentialsProvider.create(
-            AwsBasicCredentials.create("accessKey", "secretKey")))
+            AwsBasicCredentials.create("AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm")))
         .build();
     legacyDynamoClient = AmazonDynamoDBClientBuilder.standard()
-        .withEndpointConfiguration(
-            new AwsClientBuilder.EndpointConfiguration("http://localhost:" + port, "local-test-region"))
-        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("accessKey", "secretKey")))
+      .withRegion("us-east-1")
+        //.withEndpointConfiguration(
+        //    new AwsClientBuilder.EndpointConfiguration("http://localhost:" + port, "us-east-1"))
+        
+        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm")))
         .build();
   }
 

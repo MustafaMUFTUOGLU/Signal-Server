@@ -27,8 +27,8 @@ import org.whispersystems.textsecuregcm.util.Util;
 import org.whispersystems.textsecuregcm.util.ua.ClientPlatform;
 
 public class PushChallengeManager {
-  private final APNSender apnSender;
-  private final GCMSender gcmSender;
+  //private final APNSender apnSender;
+  //private final GCMSender gcmSender;
 
   private final PushChallengeDynamoDb pushChallengeDynamoDb;
 
@@ -45,11 +45,11 @@ public class PushChallengeManager {
   private static final String SUCCESS_TAG_NAME = "success";
   private static final String SOURCE_COUNTRY_TAG_NAME = "sourceCountry";
 
-  public PushChallengeManager(final APNSender apnSender, final GCMSender gcmSender,
+  public PushChallengeManager(//final APNSender apnSender, final GCMSender gcmSender,
       final PushChallengeDynamoDb pushChallengeDynamoDb) {
 
-    this.apnSender = apnSender;
-    this.gcmSender = gcmSender;
+    //this.apnSender = apnSender;
+    //this.gcmSender = gcmSender;
     this.pushChallengeDynamoDb = pushChallengeDynamoDb;
   }
 
@@ -71,10 +71,10 @@ public class PushChallengeManager {
       sent = true;
 
       if (StringUtils.isNotBlank(masterDevice.getGcmId())) {
-        gcmSender.sendMessage(new GcmMessage(masterDevice.getGcmId(), account.getUuid(), 0, GcmMessage.Type.RATE_LIMIT_CHALLENGE, Optional.of(tokenHex)));
+        //gcmSender.sendMessage(new GcmMessage(masterDevice.getGcmId(), account.getUuid(), 0, GcmMessage.Type.RATE_LIMIT_CHALLENGE, Optional.of(tokenHex)));
         platform = ClientPlatform.ANDROID.name().toLowerCase();
       } else if (StringUtils.isNotBlank(masterDevice.getApnId())) {
-        apnSender.sendMessage(new ApnMessage(masterDevice.getApnId(), account.getUuid(), 0, false, Type.RATE_LIMIT_CHALLENGE, Optional.of(tokenHex)));
+        //apnSender.sendMessage(new ApnMessage(masterDevice.getApnId(), account.getUuid(), 0, false, Type.RATE_LIMIT_CHALLENGE, Optional.of(tokenHex)));
         platform = ClientPlatform.IOS.name().toLowerCase();
       } else {
         throw new AssertionError();

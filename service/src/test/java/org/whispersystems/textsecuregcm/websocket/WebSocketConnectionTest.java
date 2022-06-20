@@ -103,7 +103,7 @@ class WebSocketConnectionTest {
     MessagesManager storedMessages = mock(MessagesManager.class);
     WebSocketAccountAuthenticator webSocketAuthenticator = new WebSocketAccountAuthenticator(accountAuthenticator);
     AuthenticatedConnectListener connectListener = new AuthenticatedConnectListener(receiptSender, storedMessages,
-        mock(MessageSender.class), apnFallbackManager, mock(ClientPresenceManager.class),
+        mock(MessageSender.class), /*apnFallbackManager,*/ mock(ClientPresenceManager.class),
         retrySchedulingExecutor);
     WebSocketSessionContext sessionContext = mock(WebSocketSessionContext.class);
 

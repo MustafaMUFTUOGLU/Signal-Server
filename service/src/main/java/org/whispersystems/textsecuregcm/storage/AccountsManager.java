@@ -35,8 +35,8 @@ import org.whispersystems.textsecuregcm.entities.AccountAttributes;
 import org.whispersystems.textsecuregcm.push.ClientPresenceManager;
 import org.whispersystems.textsecuregcm.redis.FaultTolerantRedisCluster;
 import org.whispersystems.textsecuregcm.redis.RedisOperation;
-import org.whispersystems.textsecuregcm.securebackup.SecureBackupClient;
-import org.whispersystems.textsecuregcm.securestorage.SecureStorageClient;
+//import org.whispersystems.textsecuregcm.securebackup.SecureBackupClient;
+//import org.whispersystems.textsecuregcm.securestorage.SecureStorageClient;
 import org.whispersystems.textsecuregcm.sqs.DirectoryQueue;
 import org.whispersystems.textsecuregcm.util.Constants;
 import org.whispersystems.textsecuregcm.util.SystemMapper;
@@ -77,8 +77,8 @@ public class AccountsManager {
   private final ReservedUsernames reservedUsernames;
   private final ProfilesManager profilesManager;
   private final StoredVerificationCodeManager pendingAccounts;
-  private final SecureStorageClient secureStorageClient;
-  private final SecureBackupClient secureBackupClient;
+  //private final SecureStorageClient secureStorageClient;
+ // private final SecureBackupClient secureBackupClient;
   private final ClientPresenceManager clientPresenceManager;
   private final ObjectMapper mapper;
   private final Clock clock;
@@ -116,8 +116,8 @@ public class AccountsManager {
       final ReservedUsernames reservedUsernames,
       final ProfilesManager profilesManager,
       final StoredVerificationCodeManager pendingAccounts,
-      final SecureStorageClient secureStorageClient,
-      final SecureBackupClient secureBackupClient,
+     // final SecureStorageClient secureStorageClient,
+     // final SecureBackupClient secureBackupClient,
       final ClientPresenceManager clientPresenceManager,
       final Clock clock) {
     this.accounts = accounts;
@@ -129,8 +129,8 @@ public class AccountsManager {
     this.messagesManager = messagesManager;
     this.profilesManager = profilesManager;
     this.pendingAccounts = pendingAccounts;
-    this.secureStorageClient = secureStorageClient;
-    this.secureBackupClient  = secureBackupClient;
+   // this.secureStorageClient = secureStorageClient;
+   // this.secureBackupClient  = secureBackupClient;
     this.clientPresenceManager = clientPresenceManager;
     this.reservedUsernames = reservedUsernames;
     this.mapper              = SystemMapper.getMapper();
@@ -549,24 +549,24 @@ public class AccountsManager {
   }
 
   private void delete(final Account account) {
-    final CompletableFuture<Void> deleteStorageServiceDataFuture = secureStorageClient.deleteStoredData(account.getUuid());
-    final CompletableFuture<Void> deleteBackupServiceDataFuture = secureBackupClient.deleteBackups(account.getUuid());
+    // final CompletableFuture<Void> deleteStorageServiceDataFuture = secureStorageClient.deleteStoredData(account.getUuid());
+    // final CompletableFuture<Void> deleteBackupServiceDataFuture = secureBackupClient.deleteBackups(account.getUuid());
 
-    profilesManager.deleteAll(account.getUuid());
-    keys.delete(account.getUuid());
-    keys.delete(account.getPhoneNumberIdentifier());
-    messagesManager.clear(account.getUuid());
-    messagesManager.clear(account.getPhoneNumberIdentifier());
+    // profilesManager.deleteAll(account.getUuid());
+    // keys.delete(account.getUuid());
+    // keys.delete(account.getPhoneNumberIdentifier());
+    // messagesManager.clear(account.getUuid());
+    // messagesManager.clear(account.getPhoneNumberIdentifier());
 
-    deleteStorageServiceDataFuture.join();
-    deleteBackupServiceDataFuture.join();
+    // deleteStorageServiceDataFuture.join();
+    // deleteBackupServiceDataFuture.join();
 
-    accounts.delete(account.getUuid());
-    redisDelete(account);
+    // accounts.delete(account.getUuid());
+    // redisDelete(account);
 
-    RedisOperation.unchecked(() ->
-        account.getDevices().forEach(device ->
-            clientPresenceManager.disconnectPresence(account.getUuid(), device.getId())));
+    // RedisOperation.unchecked(() ->
+    //     account.getDevices().forEach(device ->
+    //         clientPresenceManager.disconnectPresence(account.getUuid(), device.getId())));
   }
 
   private String getAccountMapKey(String key) {

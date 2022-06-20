@@ -139,8 +139,8 @@ class AccountsManagerTest {
         reservedUsernames,
         profilesManager,
         mock(StoredVerificationCodeManager.class),
-        storageClient,
-        backupClient,
+      //  storageClient,
+       // backupClient,
         mock(ClientPresenceManager.class),
         mock(Clock.class));
   }

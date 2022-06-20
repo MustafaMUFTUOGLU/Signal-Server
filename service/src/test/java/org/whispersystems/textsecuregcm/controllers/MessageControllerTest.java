@@ -121,7 +121,7 @@ class MessageControllerTest {
       .setTestContainerFactory(new GrizzlyWebTestContainerFactory())
       .addResource(
           new MessageController(rateLimiters, messageSender, receiptSender, accountsManager, deletedAccountsManager,
-              messagesManager, apnFallbackManager, reportMessageManager, multiRecipientMessageExecutor))
+              messagesManager, /*apnFallbackManager,*/ reportMessageManager, multiRecipientMessageExecutor))
       .build();
 
   @BeforeEach

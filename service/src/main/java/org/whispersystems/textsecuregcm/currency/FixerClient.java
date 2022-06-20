@@ -23,11 +23,12 @@ public class FixerClient {
 
   public Map<String, BigDecimal> getConversionsForBase(String base) throws FixerException {
     try {
-      URI uri = URI.create("https://data.fixer.io/api/latest?access_key=" + apiKey + "&base=" + base);
+      URI uri = URI.create("https://api.apilayer.com/fixer/latest?symbols=" + base + "&base=" + base);
 
       HttpResponse<String> response =  client.send(HttpRequest.newBuilder()
-                                                              .GET()
+      .GET()
                                                               .uri(uri)
+                                                              .header("apikey",apiKey)
                                                               .build(),
                                                    HttpResponse.BodyHandlers.ofString());
 

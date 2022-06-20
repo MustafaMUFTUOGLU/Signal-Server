@@ -110,8 +110,8 @@ class ProfileControllerTest {
   private static final RateLimiter usernameRateLimiter = mock(RateLimiter.class);
 
   private static final S3Client s3client = mock(S3Client.class);
-  private static final PostPolicyGenerator postPolicyGenerator = new PostPolicyGenerator("us-west-1", "profile-bucket", "accessKey");
-  private static final PolicySigner policySigner = new PolicySigner("accessSecret", "us-west-1");
+  private static final PostPolicyGenerator postPolicyGenerator = new PostPolicyGenerator("us-east-1", "profile-bucket", "AKIAYFDZTKOV5OKLKJNE");
+  private static final PolicySigner policySigner = new PolicySigner("EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm", "us-east-1");
   private static final ServerZkProfileOperations zkProfileOperations = mock(ServerZkProfileOperations.class);
 
   private static final byte[] UNIDENTIFIED_ACCESS_KEY = "test-uak".getBytes(StandardCharsets.UTF_8);

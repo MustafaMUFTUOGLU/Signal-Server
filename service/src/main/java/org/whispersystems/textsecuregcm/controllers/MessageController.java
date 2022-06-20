@@ -111,7 +111,7 @@ public class MessageController {
   private final AccountsManager accountsManager;
   private final DeletedAccountsManager deletedAccountsManager;
   private final MessagesManager messagesManager;
-  private final ApnFallbackManager apnFallbackManager;
+  //private final ApnFallbackManager apnFallbackManager;
   private final ReportMessageManager reportMessageManager;
   private final ExecutorService multiRecipientMessageExecutor;
 
@@ -148,7 +148,7 @@ public class MessageController {
       AccountsManager accountsManager,
       DeletedAccountsManager deletedAccountsManager,
       MessagesManager messagesManager,
-      ApnFallbackManager apnFallbackManager,
+      //ApnFallbackManager apnFallbackManager,
       ReportMessageManager reportMessageManager,
       @Nonnull ExecutorService multiRecipientMessageExecutor) {
     this.rateLimiters = rateLimiters;
@@ -157,7 +157,7 @@ public class MessageController {
     this.accountsManager = accountsManager;
     this.deletedAccountsManager = deletedAccountsManager;
     this.messagesManager = messagesManager;
-    this.apnFallbackManager = apnFallbackManager;
+    //this.apnFallbackManager = apnFallbackManager;
     this.reportMessageManager = reportMessageManager;
     this.multiRecipientMessageExecutor = Objects.requireNonNull(multiRecipientMessageExecutor);
   }
@@ -498,7 +498,7 @@ public class MessageController {
     assert auth.getAuthenticatedDevice() != null;
 
     if (!Util.isEmpty(auth.getAuthenticatedDevice().getApnId())) {
-      RedisOperation.unchecked(() -> apnFallbackManager.cancel(auth.getAccount(), auth.getAuthenticatedDevice()));
+      //RedisOperation.unchecked(() -> apnFallbackManager.cancel(auth.getAccount(), auth.getAuthenticatedDevice()));
     }
 
     final OutgoingMessageEntityList outgoingMessages = messagesManager.getMessagesForDevice(

@@ -403,9 +403,9 @@ class DynamicConfigurationTest {
           turn:
             secret: bloop
             uriConfigs:
-                - uris:
-                    - turn:test.org
-                  weight: -1
+              - uris:
+                  - turn:test.org
+                weight: 1
            """);
       assertThat(DynamicConfigurationManager.parseConfiguration(config, DynamicConfiguration.class)).isEmpty();
     }

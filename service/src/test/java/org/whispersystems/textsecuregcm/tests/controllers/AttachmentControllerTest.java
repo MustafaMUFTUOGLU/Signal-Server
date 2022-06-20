@@ -83,8 +83,8 @@ class AttachmentControllerTest {
               ImmutableSet.of(AuthenticatedAccount.class, DisabledPermittedAuthenticatedAccount.class)))
               .setMapper(SystemMapper.getMapper())
               .setTestContainerFactory(new GrizzlyWebTestContainerFactory())
-              .addResource(new AttachmentControllerV1(rateLimiters, "accessKey", "accessSecret", "attachment-bucket"))
-              .addResource(new AttachmentControllerV2(rateLimiters, "accessKey", "accessSecret", "us-east-1", "attachmentv2-bucket"))
+              .addResource(new AttachmentControllerV1(rateLimiters, "AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm", "attachment-bucket"))
+              .addResource(new AttachmentControllerV2(rateLimiters, "AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm", "us-east-1", "attachmentv2-bucket"))
               .addResource(new AttachmentControllerV3(rateLimiters, "some-cdn.signal.org", "signal@example.com", 1000, "/attach-here", RSA_PRIVATE_KEY_PEM))
               .build();
     } catch (IOException | InvalidKeyException | InvalidKeySpecException e) {

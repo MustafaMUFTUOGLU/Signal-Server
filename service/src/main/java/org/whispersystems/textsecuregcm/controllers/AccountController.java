@@ -137,8 +137,8 @@ public class AccountController {
   private final TurnTokenGenerator                 turnTokenGenerator;
   private final Map<String, Integer>               testDevices;
   private final RecaptchaClient recaptchaClient;
-  private final GCMSender                          gcmSender;
-  private final APNSender                          apnSender;
+  //private final GCMSender                          gcmSender;
+  //private final APNSender                          apnSender;
   private final ExternalServiceCredentialGenerator backupServiceCredentialGenerator;
 
   private final TwilioVerifyExperimentEnrollmentManager verifyExperimentEnrollmentManager;
@@ -153,8 +153,8 @@ public class AccountController {
                            TurnTokenGenerator turnTokenGenerator,
                            Map<String, Integer> testDevices,
                            RecaptchaClient recaptchaClient,
-                           GCMSender gcmSender,
-                           APNSender apnSender,
+                           //GCMSender gcmSender,
+                           //APNSender apnSender,
                            TwilioVerifyExperimentEnrollmentManager verifyExperimentEnrollmentManager,
                            ChangeNumberManager changeNumberManager,
                            ExternalServiceCredentialGenerator backupServiceCredentialGenerator)
@@ -168,8 +168,8 @@ public class AccountController {
     this.testDevices                       = testDevices;
     this.turnTokenGenerator                = turnTokenGenerator;
     this.recaptchaClient = recaptchaClient;
-    this.gcmSender                         = gcmSender;
-    this.apnSender                         = apnSender;
+    //this.gcmSender                         = gcmSender;
+    //this.apnSender                         = apnSender;
     this.verifyExperimentEnrollmentManager = verifyExperimentEnrollmentManager;
     this.backupServiceCredentialGenerator = backupServiceCredentialGenerator;
     this.changeNumberManager = changeNumberManager;
@@ -200,9 +200,9 @@ public class AccountController {
     pendingAccounts.store(number, storedVerificationCode);
 
     if ("fcm".equals(pushType)) {
-      gcmSender.sendMessage(new GcmMessage(pushToken, null, 0, GcmMessage.Type.CHALLENGE, Optional.of(storedVerificationCode.getPushCode())));
+      //gcmSender.sendMessage(new GcmMessage(pushToken, null, 0, GcmMessage.Type.CHALLENGE, Optional.of(storedVerificationCode.getPushCode())));
     } else if ("apn".equals(pushType)) {
-      apnSender.sendMessage(new ApnMessage(pushToken, null, 0, useVoip.orElse(true), ApnMessage.Type.CHALLENGE, Optional.of(storedVerificationCode.getPushCode())));
+      //apnSender.sendMessage(new ApnMessage(pushToken, null, 0, useVoip.orElse(true), ApnMessage.Type.CHALLENGE, Optional.of(storedVerificationCode.getPushCode())));
     } else {
       throw new AssertionError();
     }
@@ -728,11 +728,8 @@ public class AccountController {
       Optional<String> pushChallenge,
       String userAgent)
   {
-    if (testDevices.containsKey(number)) {
-      return new CaptchaRequirement(false, false);
-    }
-
     final String countryCode = Util.getCountryCode(number);
+
     if (captchaToken.isPresent()) {
       boolean validToken = recaptchaClient.verify(captchaToken.get(), sourceHost);
 

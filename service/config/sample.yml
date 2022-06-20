@@ -10,50 +10,50 @@ stripe:
     Example
 
 dynamoDbClientConfiguration:
-  region: us-west-2 # AWS Region
+  region: us-east-1 # AWS Region
 
 dynamoDbTables:
   accounts:
-    tableName: Example_Accounts
-    phoneNumberTableName: Example_Accounts_PhoneNumbers
-    phoneNumberIdentifierTableName: Example_Accounts_PhoneNumberIdentifiers
-    usernamesTableName: Example_Accounts_Usernames
+    tableName: accounts_test
+    phoneNumberTableName: numbers_test
+    phoneNumberIdentifierTableName: pni_test
+    usernamesTableName: username_test
     scanPageSize: 100
   deletedAccounts:
-    tableName: Example_DeletedAccounts
-    needsReconciliationIndexName: NeedsReconciliation
+    tableName: deleted_accounts_test
+    needsReconciliationIndexName: needs_reconciliation_test
   deletedAccountsLock:
-    tableName: Example_DeletedAccountsLock
+    tableName: deleted_accounts_lock_test
   issuedReceipts:
-    tableName: Example_IssuedReceipts
+    tableName: issued_receipts
     expiration: P30D # Duration of time until rows expire
     generator: abcdefg12345678= # random base64-encoded binary sequence
   keys:
-    tableName: Example_Keys
+    tableName: Signal_Keys_Test
   messages:
-    tableName: Example_Messages
+    tableName: Signal_Messages_UnitTest
     expiration: P30D # Duration of time until rows expire
   pendingAccounts:
-    tableName: Example_PendingAccounts
+    tableName: PendingAccounts
   pendingDevices:
-    tableName: Example_PendingDevices
+    tableName: PendingDevices
   phoneNumberIdentifiers:
-    tableName: Example_PhoneNumberIdentifiers
+    tableName: PhoneNumberIdentifiers
   profiles:
-    tableName: Example_Profiles
+    tableName: Profiles
   pushChallenge:
-    tableName: Example_PushChallenge
+    tableName: push_challenge_test
   redeemedReceipts:
-    tableName: Example_RedeemedReceipts
+    tableName: RedeemedReceipts
     expiration: P30D # Duration of time until rows expire
   remoteConfig:
-    tableName: Example_RemoteConfig
+    tableName: remote_configs_test
   reportMessage:
-    tableName: Example_ReportMessage
+    tableName: report_message_test
   reservedUsernames:
-    tableName: Example_ReservedUsernames
+    tableName: reserved_usernames_test
   subscriptions:
-    tableName: Example_Subscriptions
+    tableName: subscriptions
 
 twilio: # Twilio gateway configuration
   accountId: unset
@@ -79,21 +79,21 @@ twilio: # Twilio gateway configuration
   verifyServiceFriendlyName: example # Service name used in template. Requires Twilio account rep to enable
 
 cacheCluster: # Redis server configuration for cache cluster
-  configurationUri: redis://redis.example.com:6379/
+  configurationUri: redis://localhost:8100/
 
 clientPresenceCluster: # Redis server configuration for client presence cluster
-  configurationUri: redis://redis.example.com:6379/
+  configurationUri: redis://localhost:8100/
 
 pubsub: # Redis server configuration for pubsub cluster
-  url: redis://redis.example.com:6379/
+  url: redis://localhost:8100/
   replicaUrls:
-    - redis://redis.example.com:6379/
+    - redis://localhost:8100/
 
 pushSchedulerCluster: # Redis server configuration for push scheduler cluster
-  configurationUri: redis://redis.example.com:6379/
+  configurationUri: redis://localhost:8100/
 
 rateLimitersCluster: # Redis server configuration for rate limiters cluster
-  configurationUri: redis://redis.example.com:6379/
+  configurationUri: redis://localhost:8100/
 
 directory:
   client: # Configuration for interfacing with Contact Discovery Service cluster
@@ -139,50 +139,37 @@ directoryV2:
 messageCache: # Redis server configuration for message store cache
   persistDelayMinutes: 1
   cluster:
-    configurationUri: redis://redis.example.com:6379/
+    configurationUri: redis://localhost:8100/
 
 metricsCluster:
-  configurationUri: redis://redis.example.com:6379/
+  configurationUri: redis://localhost:8100/
 
 awsAttachments: # AWS S3 configuration
-  accessKey: test
-  accessSecret: test
-  bucket: aws-attachments
-  region: us-west-2
+  accessKey: AKIAYFDZTKOV5OKLKJNE
+  accessSecret: EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm
+  bucket: didi.test.bucket
+  region: us-east-1
 
 gcpAttachments: # GCP Storage configuration
-  domain: example.com
-  email: user@example.cocm
+  domain: didi.pinconi.com
+  email: capca-959@siganlapp.iam.gserviceaccount.com
   maxSizeInBytes: 1024
   pathPrefix:
   rsaSigningKey: |
     -----BEGIN PRIVATE KEY-----
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-    AAAAAAAA
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDczHdr5D5gTDnE\n3tmLlEzDyuEXAMKz1+aiev1oitDNbdv8sJLX79yB8ebrVXX+DVGbqWi6qzppqy1A
+    GkpZ2+IIzL6KTDw0j3GvhwFVC4WH0Ndc36Q94SBe4ptKmGcmOA7hZZS0Qt61VF14\n1vAM8flSqBHMVy5EfPoVz2DsL6LOu8fyIdzAt0qvNuIIO76oHf57ruM81py+jEMh
+    nx00Rra72yPnGQ9V1tQyGUglanKhMqFPvpUcNhETy54vsDl8zS8y+PRbP2HmvXuW\nPYmAaQMXxZRd5V7d6GStJ5IxMkJpA5Pkdxws5Tb4VfJzWr6eHmRuMniBpaZxodev
+    4RfWqlLJAgMBAAECggEAFezsZW97dbTQDkGKZQLHmjA26KG709/KQGN570QMnr+s\nZxPyKwT/trwqn/8jKcSREGXy10mKUgSsaEeMD08HS7QoLiPKnTYK1iEwA83Sd1WI
+    00lGfhoRTLbQMKjAYnJR4PZFPV7ADo3Xf9jJKuHq7hcwOERGfQjTjS+kCmQjFMfv\nzRbg03t3+TeB1HmVIhA/i51msxq43Z0dIdFlzDcIdo2Q7YF+p/RoglRUoJkVBQcu
+    gW9pnd/j8GDfO4CQXCzIrAghZAs6qJySQAYMpQHeFNXSx0DE84aadroz5lwPr7x7\nUZv1lU1RhOxPNpL7kr9ky75rfA+2AX7GBtCSQNVWUQKBgQD+FSo5jJCEYcfERiSI
+    UqgYUc1hzipmln/Ai3HgTq7Rlt4PmozxJXQqQKuarXzDxV9fUAjzGScYuzehl5r/\ntsXFt8it2Ja7DUKlNtOMwYIHic+WWmMnZUF1a9NjU3OiDTqehpodrMkID3T4w3sT
+    mCLhOTIp74iiWt93S7LrSJfiUQKBgQDedwD5OXDGKtaEOgrWJjOtCrkjb7phArvQ\nvza89XPqGPmUPVi+Dm9hhPGDIAMO3HJa1KTHpCXgX9LRdgy5d3emvHENO9zAITnv
+    1bGBTdowkV9Jsy5DeiUN4DbO4GvLs3mnKocFRBSyUzBSjIHKHrjH1HHv/uCTtvuD\nOcQwEc2S+QKBgD/Tc0L3o4oNwg/1CtJP6TgKvIwYLSCOJ9NndBjDyziNLIVA7qzZ
+    GsBOdI0rjY7kMtwPj9/5bo/Q392w5tfbwvyy+S9qnBqq7xXvmt7d8VsRbFs5o3TP\nA82KY5Ss7vxDVHlkGKzhrbJfp6Oh/3XhnslzA73zFSCrsT0Xf/+IwdaxAoGASYV0
+    2ejk32kq6howmKOZcnfXxeFX7FW18oAvO/W2sEg+u4ImwPEOWGFSW+6JdDDgzin2\np1AVgHjKuJTWEbls3rrqdeAxzYFtn1i1SDGNiX2Ry06fXIeSlWpjUq2SkoinDNse
+    MlxUpradgrqS7lSG5uvMF+/ZEphnuO+vad+IXCkCgYEA3EWTP4Qjwtrf8zGsXBdj\nbO7E3yMR3ZG8BRRcwpKgGnvkRuZJqhfnabDi8L/XZ807QU0+QFz9iHX82RSBAqjB
+    w96QkPb97fc+aKfXaOSQqD+7cTHv7740QHykCE+H/feUFWGTic0pu/q0oc59ZZYS\nk2CMe/NPzPFvnu6xR3+qXUo=
     -----END PRIVATE KEY-----
 
 accountDatabaseCrawler:
@@ -207,18 +194,18 @@ gcm: # GCM Configuration
   apiKey: unset
 
 cdn:
-  accessKey: test    # AWS Access Key ID
-  accessSecret: test # AWS Access Secret
-  bucket: cdn        # S3 Bucket name
-  region: us-west-2  # AWS region
+  accessKey: AKIAYFDZTKOV5OKLKJNE    # AWS Access Key ID
+  accessSecret: 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 # AWS Access Secret
+  bucket: didi.test.bucket        # S3 Bucket name
+  region: us-east-1  # AWS region
 
 datadog:
-  apiKey: unset
+  apiKey: 201e4617292df377321c835b4b5f94ea
   environment: dev
 
 unidentifiedDelivery:
-  certificate: ABCD1234
-  privateKey: ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789AAAAAAA
+  certificate: CiYI5A8SIQU+i+V27rBOtd9bgJoWxgxHG8QtBSaWV+YtKUXhPdk8PhJAlUkWLgH6J0cNB/X/U8X4g81UL7btUFLH6X5ae3kEl/gwXW8sFvfxFk1renIrYlr3hDAwNZnewGxDwMDkdP8zBA==
+  privateKey: 4J8HSMnw3t0H94DJTdSpPCiuFqVoIXQV8WmoFW6Ox1M=
   expiresDays: 7
 
 voiceVerification:
@@ -228,7 +215,7 @@ voiceVerification:
 
 recaptcha:
   projectPath: projects/example
-  credentialConfigurationJson: "{ }" # service account configuration for backend authentication
+  credentialConfigurationJson: "{\"type\": \"service_account\", \"project_id\": \"siganlapp\", \"private_key_id\": \"3dde75edcfc6e079b910208d06851478a4957bc7\",\"private_key\": \"-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDczHdr5D5gTDnE\n3tmLlEzDyuEXAMKz1+aiev1oitDNbdv8sJLX79yB8ebrVXX+DVGbqWi6qzppqy1A\nGkpZ2+IIzL6KTDw0j3GvhwFVC4WH0Ndc36Q94SBe4ptKmGcmOA7hZZS0Qt61VF14\n1vAM8flSqBHMVy5EfPoVz2DsL6LOu8fyIdzAt0qvNuIIO76oHf57ruM81py+jEMh\nnx00Rra72yPnGQ9V1tQyGUglanKhMqFPvpUcNhETy54vsDl8zS8y+PRbP2HmvXuW\nPYmAaQMXxZRd5V7d6GStJ5IxMkJpA5Pkdxws5Tb4VfJzWr6eHmRuMniBpaZxodev\n4RfWqlLJAgMBAAECggEAFezsZW97dbTQDkGKZQLHmjA26KG709/KQGN570QMnr+s\nZxPyKwT/trwqn/8jKcSREGXy10mKUgSsaEeMD08HS7QoLiPKnTYK1iEwA83Sd1WI\n00lGfhoRTLbQMKjAYnJR4PZFPV7ADo3Xf9jJKuHq7hcwOERGfQjTjS+kCmQjFMfv\nzRbg03t3+TeB1HmVIhA/i51msxq43Z0dIdFlzDcIdo2Q7YF+p/RoglRUoJkVBQcu\ngW9pnd/j8GDfO4CQXCzIrAghZAs6qJySQAYMpQHeFNXSx0DE84aadroz5lwPr7x7\nUZv1lU1RhOxPNpL7kr9ky75rfA+2AX7GBtCSQNVWUQKBgQD+FSo5jJCEYcfERiSI\nUqgYUc1hzipmln/Ai3HgTq7Rlt4PmozxJXQqQKuarXzDxV9fUAjzGScYuzehl5r/\ntsXFt8it2Ja7DUKlNtOMwYIHic+WWmMnZUF1a9NjU3OiDTqehpodrMkID3T4w3sT\nmCLhOTIp74iiWt93S7LrSJfiUQKBgQDedwD5OXDGKtaEOgrWJjOtCrkjb7phArvQ\nvza89XPqGPmUPVi+Dm9hhPGDIAMO3HJa1KTHpCXgX9LRdgy5d3emvHENO9zAITnv\n1bGBTdowkV9Jsy5DeiUN4DbO4GvLs3mnKocFRBSyUzBSjIHKHrjH1HHv/uCTtvuD\nOcQwEc2S+QKBgD/Tc0L3o4oNwg/1CtJP6TgKvIwYLSCOJ9NndBjDyziNLIVA7qzZ\nGsBOdI0rjY7kMtwPj9/5bo/Q392w5tfbwvyy+S9qnBqq7xXvmt7d8VsRbFs5o3TP\nA82KY5Ss7vxDVHlkGKzhrbJfp6Oh/3XhnslzA73zFSCrsT0Xf/+IwdaxAoGASYV0\n2ejk32kq6howmKOZcnfXxeFX7FW18oAvO/W2sEg+u4ImwPEOWGFSW+6JdDDgzin2\np1AVgHjKuJTWEbls3rrqdeAxzYFtn1i1SDGNiX2Ry06fXIeSlWpjUq2SkoinDNse\nMlxUpradgrqS7lSG5uvMF+/ZEphnuO+vad+IXCkCgYEA3EWTP4Qjwtrf8zGsXBdj\nbO7E3yMR3ZG8BRRcwpKgGnvkRuZJqhfnabDi8L/XZ807QU0+QFz9iHX82RSBAqjB\nw96QkPb97fc+aKfXaOSQqD+7cTHv7740QHykCE+H/feUFWGTic0pu/q0oc59ZZYS\nk2CMe/NPzPFvnu6xR3+qXUo=\n-----END PRIVATE KEY-----\n\",\"client_email\": \"capca-959@siganlapp.iam.gserviceaccount.com\",\"client_id\": \"118170121343286573012\",\"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\"token_uri\": \"https://oauth2.googleapis.com/token\",\"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/capca-959%40siganlapp.iam.gserviceaccount.com\" }" # service account configuration for backend authentication
 
 storageService:
   uri: storage.example.com
@@ -283,8 +270,8 @@ backupService:
     -----END CERTIFICATE-----
 
 zkConfig:
-  serverPublic: ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyz
-  serverSecret: ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789+abcdefghijklmnopqrstuvwxyzAA==
+  serverPublic: AGJwBYWv50D6RRUnUU/zULU3puhAdcfhFtiTETeRF5FvIvGKZ51vIoEq1Hr9Sz0dDNTzrf0u6TcqaCHjLN7vRy1Kaj1flSShOwFKnEzk6yYQ4Wucv5EY+Co1pBf6sNsTSiaT+AF1Qkeg1sCaO0igcj/+hQYWfi9H43DZ/eFDsdAx5C+rwHy3pywxnC4gjAmHruQelTfIlokbQH5cnx3x4wuQzSKjRT7VPEKHu8+1fLn5oDNopuHBTnH402cgJx0ZKVL/S6leqBSknvujWgeOdt3Dgs4JLTBpKZTYPVsuKR80dGruqZ/vqtmUiQPTdGTXEl1RSgppzemEIqzEvl/Tkm5+/IWe7Jpk/Tf0RDYtuz+QbUohaB13Ysr06p2zqnr/Kw
+  serverSecret: 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
 
 appConfig:
   application: example
@@ -302,7 +289,7 @@ remoteConfig:
 
 paymentsService:
   userAuthenticationTokenSharedSecret: 0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f # hex-encoded 32-byte secret shared with MobileCoin services used to generate auth tokens for Signal users
-  fixerApiKey: unset
+  fixerApiKey: Y7x9hoy8U7HPWiAHaejIn7IWoHPMkEPS
   paymentCurrencies:
     # list of symbols for supported currencies
     - MOB
@@ -367,3 +354,6 @@ gift:
   currencies:
     # ISO 4217 currency codes and amounts in those currencies
     xts: '2'
+
+testDevices:
+  [ {number: "5497721577", code: 90}]

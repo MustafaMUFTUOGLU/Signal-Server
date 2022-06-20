@@ -32,11 +32,11 @@ class DynamicConfigurationManagerTest {
   void setup() {
     this.appConfig = mock(AppConfigDataClient.class);
     this.dynamicConfigurationManager = new DynamicConfigurationManager<>(
-        appConfig, "foo", "bar", "baz", DynamicConfiguration.class);
+        appConfig, "example", "example", "example", DynamicConfiguration.class);
     this.startConfigurationSession = StartConfigurationSessionRequest.builder()
-        .applicationIdentifier("foo")
-        .environmentIdentifier("bar")
-        .configurationProfileIdentifier("baz")
+        .applicationIdentifier("example")
+        .environmentIdentifier("example")
+        .configurationProfileIdentifier("example")
         .build();
   }
 

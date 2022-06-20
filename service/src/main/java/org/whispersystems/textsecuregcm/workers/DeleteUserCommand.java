@@ -191,7 +191,9 @@ public class DeleteUserCommand extends EnvironmentCommand<WhisperServerConfigura
       StoredVerificationCodeManager pendingAccountsManager = new StoredVerificationCodeManager(pendingAccounts);
       AccountsManager accountsManager = new AccountsManager(accounts, phoneNumberIdentifiers, cacheCluster,
           deletedAccountsManager, directoryQueue, keys, messagesManager, reservedUsernames, profilesManager,
-          pendingAccountsManager, secureStorageClient, secureBackupClient, clientPresenceManager, clock);
+          pendingAccountsManager, 
+          //secureStorageClient, secureBackupClient, 
+          clientPresenceManager, clock);
 
       for (String user : users) {
         Optional<Account> account = accountsManager.getByE164(user);

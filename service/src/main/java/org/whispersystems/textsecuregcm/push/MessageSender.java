@@ -35,11 +35,11 @@ import org.whispersystems.textsecuregcm.util.Util;
  */
 public class MessageSender implements Managed {
 
-  private final ApnFallbackManager         apnFallbackManager;
+  //private final ApnFallbackManager         apnFallbackManager;
   private final ClientPresenceManager      clientPresenceManager;
   private final MessagesManager            messagesManager;
-  private final GCMSender                  gcmSender;
-  private final APNSender                  apnSender;
+  //private final GCMSender                  gcmSender;
+  //private final APNSender                  apnSender;
   private final PushLatencyManager         pushLatencyManager;
 
   private static final String SEND_COUNTER_NAME      = name(MessageSender.class, "sendMessage");
@@ -47,18 +47,18 @@ public class MessageSender implements Managed {
   private static final String EPHEMERAL_TAG_NAME     = "ephemeral";
   private static final String CLIENT_ONLINE_TAG_NAME = "clientOnline";
 
-  public MessageSender(ApnFallbackManager    apnFallbackManager,
+  public MessageSender(//ApnFallbackManager    apnFallbackManager,
                        ClientPresenceManager clientPresenceManager,
                        MessagesManager       messagesManager,
-                       GCMSender             gcmSender,
-                       APNSender             apnSender,
+                       //GCMSender             gcmSender,
+                       //APNSender             apnSender,
                        PushLatencyManager    pushLatencyManager)
   {
-    this.apnFallbackManager    = apnFallbackManager;
+    //this.apnFallbackManager    = apnFallbackManager;
     this.clientPresenceManager = clientPresenceManager;
     this.messagesManager       = messagesManager;
-    this.gcmSender             = gcmSender;
-    this.apnSender             = apnSender;
+    //this.gcmSender             = gcmSender;
+    //this.apnSender             = apnSender;
     this.pushLatencyManager    = pushLatencyManager;
   }
 
@@ -122,7 +122,7 @@ public class MessageSender implements Managed {
     GcmMessage gcmMessage = new GcmMessage(device.getGcmId(), account.getUuid(),
                                            (int)device.getId(), GcmMessage.Type.NOTIFICATION, Optional.empty());
 
-    gcmSender.sendMessage(gcmMessage);
+    //gcmSender.sendMessage(gcmMessage);
 
     RedisOperation.unchecked(() -> pushLatencyManager.recordPushSent(account.getUuid(), device.getId(), false));
   }
@@ -134,23 +134,23 @@ public class MessageSender implements Managed {
 
     if (useVoip) {
       apnMessage = new ApnMessage(device.getVoipApnId(), account.getUuid(), device.getId(), useVoip, Type.NOTIFICATION, Optional.empty());
-      RedisOperation.unchecked(() -> apnFallbackManager.schedule(account, device));
+      //RedisOperation.unchecked(() -> apnFallbackManager.schedule(account, device));
     } else {
       apnMessage = new ApnMessage(device.getApnId(), account.getUuid(), device.getId(), useVoip, Type.NOTIFICATION, Optional.empty());
     }
 
-    apnSender.sendMessage(apnMessage);
+    //apnSender.sendMessage(apnMessage);
 
     RedisOperation.unchecked(() -> pushLatencyManager.recordPushSent(account.getUuid(), device.getId(), useVoip));
   }
 
   @Override
   public void start() {
-    apnSender.start();
+    //apnSender.start();
   }
 
   @Override
   public void stop() {
-    apnSender.stop();
+    //apnSender.stop();
   }
 }

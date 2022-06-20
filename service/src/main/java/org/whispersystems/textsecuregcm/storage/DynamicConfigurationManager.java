@@ -143,6 +143,8 @@ public class DynamicConfigurationManager<T> {
   @VisibleForTesting
   public static <T> Optional<T> parseConfiguration(final String configurationYaml, final Class<T> configurationClass)
       throws JsonProcessingException {
+
+      logger.warn("configurationYaml: {}", configurationYaml);
     final T configuration = OBJECT_MAPPER.readValue(configurationYaml, configurationClass);
     final Set<ConstraintViolation<T>> violations = VALIDATOR.validate(configuration);
 

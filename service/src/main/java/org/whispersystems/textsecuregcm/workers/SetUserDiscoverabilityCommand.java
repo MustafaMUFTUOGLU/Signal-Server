@@ -192,7 +192,9 @@ public class SetUserDiscoverabilityCommand extends EnvironmentCommand<WhisperSer
       StoredVerificationCodeManager pendingAccountsManager = new StoredVerificationCodeManager(pendingAccounts);
       AccountsManager accountsManager = new AccountsManager(accounts, phoneNumberIdentifiers, cacheCluster,
           deletedAccountsManager, directoryQueue, keys, messagesManager, reservedUsernames, profilesManager,
-          pendingAccountsManager, secureStorageClient, secureBackupClient, clientPresenceManager, clock);
+          pendingAccountsManager, 
+         // secureStorageClient, secureBackupClient, 
+          clientPresenceManager, clock);
 
       Optional<Account> maybeAccount;
 

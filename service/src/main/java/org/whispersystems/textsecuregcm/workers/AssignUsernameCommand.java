@@ -8,6 +8,8 @@ package org.whispersystems.textsecuregcm.workers;
 import static com.codahale.metrics.MetricRegistry.name;
 
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -107,7 +109,7 @@ public class AssignUsernameCommand extends EnvironmentCommand<WhisperServerConfi
     DynamicConfigurationManager<DynamicConfiguration> dynamicConfigurationManager = new DynamicConfigurationManager<>(
         configuration.getAppConfig().getApplication(), configuration.getAppConfig().getEnvironment(),
         configuration.getAppConfig().getConfigurationName(), DynamicConfiguration.class);
-    dynamicConfigurationManager.start();
+    //dynamicConfigurationManager.start();
 
     DynamoDbAsyncClient dynamoDbAsyncClient = DynamoDbFromConfig.asyncClient(
         configuration.getDynamoDbClientConfiguration(),
@@ -119,6 +121,7 @@ public class AssignUsernameCommand extends EnvironmentCommand<WhisperServerConfi
 
     AmazonDynamoDB deletedAccountsLockDynamoDbClient = AmazonDynamoDBClientBuilder.standard()
         .withRegion(configuration.getDynamoDbClientConfiguration().getRegion())
+        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm")))
         .withClientConfiguration(new ClientConfiguration().withClientExecutionTimeout(
                 ((int) configuration.getDynamoDbClientConfiguration().getClientExecutionTimeout()
                     .toMillis()))
@@ -163,10 +166,10 @@ public class AssignUsernameCommand extends EnvironmentCommand<WhisperServerConfi
         configuration.getClientPresenceClusterConfiguration(), redisClusterClientResources);
     FaultTolerantRedisCluster rateLimitersCluster = new FaultTolerantRedisCluster("rate_limiters",
         configuration.getRateLimitersCluster(), redisClusterClientResources);
-    SecureBackupClient secureBackupClient = new SecureBackupClient(backupCredentialsGenerator, backupServiceExecutor,
-        configuration.getSecureBackupServiceConfiguration());
-    SecureStorageClient secureStorageClient = new SecureStorageClient(storageCredentialsGenerator,
-        storageServiceExecutor, configuration.getSecureStorageServiceConfiguration());
+    // SecureBackupClient secureBackupClient = new SecureBackupClient(backupCredentialsGenerator, backupServiceExecutor,
+    //     configuration.getSecureBackupServiceConfiguration());
+    // SecureStorageClient secureStorageClient = new SecureStorageClient(storageCredentialsGenerator,
+    //     storageServiceExecutor, configuration.getSecureStorageServiceConfiguration());
     ClientPresenceManager clientPresenceManager = new ClientPresenceManager(clientPresenceCluster,
         Executors.newSingleThreadScheduledExecutor(), keyspaceNotificationDispatchExecutor);
     MessagesCache messagesCache = new MessagesCache(messageInsertCacheCluster, messageReadDeleteCluster,
@@ -188,7 +191,9 @@ public class AssignUsernameCommand extends EnvironmentCommand<WhisperServerConfi
     StoredVerificationCodeManager pendingAccountsManager = new StoredVerificationCodeManager(pendingAccounts);
     AccountsManager accountsManager = new AccountsManager(accounts, phoneNumberIdentifiers, cacheCluster,
         deletedAccountsManager, directoryQueue, keys, messagesManager, reservedUsernames, profilesManager,
-        pendingAccountsManager, secureStorageClient, secureBackupClient, clientPresenceManager, Clock.systemUTC());
+        pendingAccountsManager, 
+        // secureStorageClient,   secureBackupClient, 
+        clientPresenceManager, Clock.systemUTC());
 
     final String username = namespace.getString("username");
     final UUID accountIdentifier = UUID.fromString(namespace.getString("aci"));
