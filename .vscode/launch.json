@@ -4,11 +4,22 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "env": {
+                "AWS_REGION":"us-east-1", 
+                "AWS_ACCESS_KEY_ID":"AKIAYFDZTKOV5OKLKJNE", 
+                "AWS_SECRET_ACCESS_KEY":"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",
+                "DD_API_KEY":"201e4617292df377321c835b4b5f94ea",
+                "DD_SITE":"us5.datadoghq.com"
+            },
+            //"args": "assign-username -n MUSTAFA -a 5d513979-6195-41bb-9dc5-5c8626ad6104 service/config/sample.yml"
+             "args": "server service/config/sample.yml"
+             //"args": "certificate -k 4J8HSMnw3t0H94DJTdSpPCiuFqVoIXQV8WmoFW6Ox1M -i 2020"
         },
         {
             "type": "java",

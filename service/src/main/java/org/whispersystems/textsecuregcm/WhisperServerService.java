@@ -7,6 +7,8 @@ package org.whispersystems.textsecuregcm;
 import static com.codahale.metrics.MetricRegistry.name;
 
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -316,7 +318,8 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
                 ((int) config.getDynamoDbClientConfiguration().getClientExecutionTimeout().toMillis()))
             .withRequestTimeout(
                 (int) config.getDynamoDbClientConfiguration().getClientRequestTimeout().toMillis()))
-           .withCredentials(InstanceProfileCredentialsProvider.getInstance())
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIAYFDZTKOV5OKLKJNE", "EVNVJ0oCyTCiVbXXpuILHnRMceoEoYMtR7agXMJm")))
+                //.withCredentials(InstanceProfileCredentialsProvider.getInstance())
         .build();
 
     DeletedAccounts deletedAccounts = new DeletedAccounts(dynamoDbClient,
